@@ -12,6 +12,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import com.d3labs.gamerrankingsystem.database.Dtos.PlayerDto;
 import com.d3labs.gamerrankingsystem.database.Models.PlayerModel;
 import com.d3labs.gamerrankingsystem.database.RowMappers.PlayerRowMapper;
 
@@ -24,9 +25,10 @@ public class PlayerRepository {
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	private Logger logger = LoggerFactory.getLogger(PlayerRepository.class);
 
-    private static String SELECT_ALL_PLAYERS = "SELECT * FROM  ";
+    // SQL Queries
+    private static String SELECT_ALL_PLAYERS = "SELECT * FROM players ";
     private static String SELECT_PLAYER_BY_TAG = "SELECT * players p WHERE p.game_tag = :plaerID ";
-    private static String INSERT_PLAYER = "INSERT INTO players(gamer_tag, first_name, last_name) VALUES(:gamerTag, :firstName, :lastName) ";
+    private static String INSERT_PLAYER = "INSERT INTO players(gamer_tag, first_name, last_name) VALUES(:gamer_tag, :first_name, :last_name) ";
 
 // "INSERT INTO Post(user_id, create_on) VALUES(:userID, :create) ";
 
@@ -42,14 +44,13 @@ public class PlayerRepository {
 	}
 
     /**
-     * Gets a list of all of player's stored in the database.
+     * Gets a list of all of players stored in the database.
      * @return A list of PlayerModel objects.
      */
     @SuppressWarnings({ "null", "unchecked" })
     public List<PlayerModel> getAllPlayers(){
-
-        return (List<PlayerModel>) namedParameterJdbcTemplate.query(SELECT_ALL_PLAYERS, new PlayerRowMapper());
-
+        List<PlayerModel> players = namedParameterJdbcTemplate.query(SELECT_ALL_PLAYERS, new PlayerRowMapper()); 
+        return players;
     }
 
     /**
@@ -74,11 +75,11 @@ public class PlayerRepository {
 
     /**
      * Inserts a player into the database.
-     * @param player A PlayerModel object.
+     * @param game A PlayerDto object (hold the most "raw" information to easily convert to the database).
      * @return The PlayerModel object passed in.
      */
     @SuppressWarnings("null")
-    public PlayerModel AddPlayer(PlayerModel player){
+    public PlayerModel AddPlayer(PlayerDto player){
         try {
 			KeyHolder keyHolder = new GeneratedKeyHolder();
 			SqlParameterSource parameters = new MapSqlParameterSource()
@@ -88,10 +89,11 @@ public class PlayerRepository {
 
 			namedParameterJdbcTemplate.update(INSERT_PLAYER, parameters, keyHolder);
 
-            return player;
+            // Convert Dto to Model object
+            return new PlayerModel(player);
 		} catch(Exception e) 
 		{
-			logger.error("PostRepository - savePost() " + e.getLocalizedMessage());
+			logger.error("PlayerRepository - AddPlayer() " + e.getLocalizedMessage());
 		}
 		return null;
     } 

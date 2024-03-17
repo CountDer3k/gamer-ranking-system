@@ -1,5 +1,7 @@
 package com.d3labs.gamerrankingsystem.database.Models;
 
+import com.d3labs.gamerrankingsystem.database.Dtos.PlayerDto;
+
 /*
  * A model class for the player object.
  * Used to transfer data around on the application level.
@@ -16,6 +18,16 @@ public class PlayerModel {
     */
     public PlayerModel(){
 
+    }
+
+    /**
+     * Instantiates a PlayerModel object that if populated by the player dto.
+     * @param player
+     */
+    public PlayerModel(PlayerDto player){
+        this.GamerTag = player.getGamerTag();
+        this.FirstName = player.getFirstName();
+        this.LastName = player.getLastName();
     }
 
     /**

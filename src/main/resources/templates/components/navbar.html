@@ -1,0 +1,40 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+<link th:href="@{/css/main.css}" rel="stylesheet">
+<link rel="stylesheet"
+	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+	integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+	crossorigin="anonymous" />
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+	integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+	crossorigin="anonymous">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark" id="navigationFragment">
+        <div class="container-fluid row">
+            <!-- Logo Section of navigation bar -->
+            <div class="col-3">
+                Logo
+            </div>
+
+            <!-- Main section of navigation bar -->
+            <div class="col">
+                <button>Players</button>
+                <button>Games</button>
+                <button>Previous Years</button>
+                <button>Other</button>
+            </div>
+
+            <!-- Extra section of navigation bar (Potential login section) -->
+            <div class="col-3"></div>
+        </div>
+    </nav>
+</body>
+</html>

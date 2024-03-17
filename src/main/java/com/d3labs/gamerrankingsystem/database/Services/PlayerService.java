@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.d3labs.gamerrankingsystem.database.Dtos.PlayerDto;
 import com.d3labs.gamerrankingsystem.database.Models.PlayerModel;
 import com.d3labs.gamerrankingsystem.database.Repostiories.PlayerRepository;
 
@@ -35,8 +36,8 @@ public class PlayerService {
      * @return A list of PlayerModels
      */
      public List<PlayerModel> getAllPlayers(){
-    	List<PlayerModel> posts = playerRepository.getAllPlayers();
-    	return posts;
+    	List<PlayerModel> players = playerRepository.getAllPlayers();
+    	return players;
     }
 
     /**
@@ -53,7 +54,9 @@ public class PlayerService {
      * @param player The PlayerModel objecdt to add to the database.
      * @return A PlayerModel object.
      */
-    public PlayerModel addPlayer(PlayerModel player){
-        return playerRepository.AddPlayer(player);
+    public PlayerModel addPlayer(PlayerDto playerDto){
+        // Add player to database through repository.
+        return playerRepository.AddPlayer(playerDto);
     }
+
 }

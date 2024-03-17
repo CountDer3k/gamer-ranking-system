@@ -8,7 +8,7 @@ import org.springframework.jdbc.core.RowMapper;
 import com.d3labs.gamerrankingsystem.database.Models.PlayerModel;
 
 /**
- * PlayerRowMapper is used for mapping rows of a ResultSet from an SQL database to a PlyaerModel object.
+ * PlayerRowMapper is used for mapping rows of a ResultSet from an SQL database to a PlayerModel object.
  * This will map the current row defined by rowNum from the ResultSet to a PlayerModel object. 
  * This will extract the data from the columns of the current row and set the extracted values into the field of the PlayerModel object.
  */

@@ -1,21 +1,36 @@
-version: "3.8"
+version: '3.8'
+
+x-db-variables: &db-variables
+ MYSQL_DATABASE: gamer-ranking-db
+ MYSQL_ROOT_PASSWORD: turtl310
+ MYSQL_USER: root
+ MYSQL_PASSWORD: turtl310
+ MYSQL_PORT: 3306
+
 services:
   app:
     build: .
+    image: gamer-ranking-system
     restart: on-failure
     ports:
       - 8080:8080
-  #   depends_on:
-  #     - databaseMySQL:
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/gamer-ranking-db?allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_DATABASE: gamer-ranking-db
+      SPRING_DATASOURCE_ROOT_PASSWORD: turtl310
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: turtl310
+      SPRING_DATASOURCE_PORT: 3306
+    depends_on:
+      - mysql
 
-  # databaseMySQL:
-  #   platform: linux/x86_64
-  #   image: "mysql:8.0"
-  #   restart: always
-  #   ports:
-  #     - 3306:3306
-  #   environment:
-  #     MYSQL_DATABASE: gamerrankingdb
-  #     MYSQL_USER: gamer
-  #     MYSQL_PASSWORD: G@m3rz
-  #     MYSQL_ROOT_PASSWORD: turtl310
+  mysql:
+    image: mysql:latest
+    ports:
+      - 3306:3306
+    environment:
+     <<: *db-variables
+
+volumes:
+  gamer-ranking-db-volume:
