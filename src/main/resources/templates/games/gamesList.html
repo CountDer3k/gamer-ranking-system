@@ -36,12 +36,14 @@
             
           <!-- Player list -->
           <div id="games-list" class="row">
-            <th:block th:each="game : ${gamersList}">
+            <th:block th:each="game : ${gamesList}">
               <div th:replace="~{/components/cardSheet :: gameCard(${game})}"></div>
             </th:block>
           </div>
 
-          <button id="addGame">Add New Game</button>
+          <a href="/games/addGameForm" 
+					class="btn btn-primary" style="background-color: none; color: white"><i
+					class="fas fa-plus-circle"></i> Add New Game</a>
 
           <!-- Future content -->
         </div>

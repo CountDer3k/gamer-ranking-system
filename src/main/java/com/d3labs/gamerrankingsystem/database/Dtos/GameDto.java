@@ -14,6 +14,8 @@ public class GameDto {
     @NonNull
     private String gameCategory;
 
+    private byte[] gameImage;
+
     /**
      * Gets the GameName.
      * @return A string of the game name.
@@ -31,6 +33,14 @@ public class GameDto {
     }
 
     /**
+     * Gets the game image.
+     * @return A byte array containing the raw image data.
+     */
+    public byte[] getGameImage(){
+        return this.gameImage;
+    }
+
+    /**
      * Sets the game name
      * @param name A string of the game's name.
      */
@@ -44,5 +54,13 @@ public class GameDto {
      */
     public void setGameCategory(String category){
         this.gameCategory = category;
+    }
+
+    /**
+     * Set the game image.
+     * @param gameImage A byte array containing raw image data.
+     */
+    public void setGameImage(byte[] gameImage){
+        this.gameImage = gameImage;
     }
 }

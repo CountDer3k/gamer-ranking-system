@@ -13,6 +13,7 @@ public class GameModel {
     private int GameId;
     private String Name;
     private GameCategory Category;
+    private byte[] gameImage;
 
     /**
      * Instantiates a GameModel object.
@@ -55,6 +56,14 @@ public class GameModel {
     }
 
     /**
+     * Gets the game Image as a byte array.
+     * @return
+     */
+    public byte[] getGameImage(){
+        return this.gameImage;
+    }
+
+    /**
      * Sets the game id
      * @param newGameId An int of the new game id.
      */
@@ -76,5 +85,13 @@ public class GameModel {
      */
     public void setGameCategory(GameCategory category){
         this.Category = category;
+    }
+
+    /**
+     * Sets the game Image.
+     * @param gameImage A byte array that should have an image file.
+     */
+    public void setGameImage(byte[] gameImage){
+        this.gameImage = gameImage;
     }
 }

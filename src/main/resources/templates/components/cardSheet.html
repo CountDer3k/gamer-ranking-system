@@ -32,6 +32,12 @@
             <p class="h5">
                 Name: <span th:text="${player.FirstName} + ' ' + ${player.LastName}" class="h5"></span>
             </p>
+
+            <img th:src="@{'data:image/jpg;base64,' + ${player.getImageAsBase64 }}" alt="Player Image" />
+<!-- 
+            <img th:if="${player.getImageAsBase64 != null}"
+                 th:src="data:image/png;base64, ${player.getImageAsBase64}"
+                 alt="Player Image"/> -->
         </div>
     </div>
 

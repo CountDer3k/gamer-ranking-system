@@ -14,8 +14,8 @@ import org.springframework.stereotype.Repository;
 
 import com.d3labs.gamerrankingsystem.database.Dtos.GameDto;
 import com.d3labs.gamerrankingsystem.database.Models.GameModel;
-import com.d3labs.gamerrankingsystem.database.Models.PlayerModel;
 import com.d3labs.gamerrankingsystem.database.RowMappers.GameRowMapper;
+import com.d3labs.gamerrankingsystem.globals.EnumStore.GameCategory;
 
 /**
  * A Repository class for interacting with the database for the games table using the the GameModel object class.
@@ -26,10 +26,11 @@ public class GameRepository {
     private Logger logger = LoggerFactory.getLogger(GameRepository.class);
 
     // SQL Queries
-    private static String SELECT_ALL_GAMES = "";
-    private static String SELECT_GAME_BY_CATEGORY = "";
-    private static String INSERT_GAME = "";
-
+    private static String SELECT_ALL_GAMES = "SELECT * FROM games ";
+    private static String SELECT_ALL_BY_CATEGORY = "SELECT * from games p WHERE p.category = :gCategory ";
+    private static String INSERT_GAME = "INSERT INTO games(gameName, gameCategory) VALUES(:gName, :gCategory) ";
+    // "SELECT * players p WHERE p.game_tag = :playerID ";
+    // "INSERT INTO players(gamer_tag, first_name, last_name) VALUES(:gamer_tag, :first_name, :last_name) ";
     /**
      * A constructor to instatiate the Game Repository.
      * It takes in a NamedParameterJdbcTemplate that will interact with the database (like context).
@@ -42,11 +43,21 @@ public class GameRepository {
     }
 
     /**
-     * Gets a list of all of games stored in the database.
+     * Gets a list of all games stored in the database.
      * @return A list of GameModel objects.
      */
     public List<GameModel> getAllGames(){
         List<GameModel> games = namedParameterJdbcTemplate.query(SELECT_ALL_GAMES, new GameRowMapper());
+        return games;
+    }
+
+    /**
+     * Gets a list of all games stored in the database that fit into the category.
+     * @param category The category to query by.
+     * @return A list of game models 
+     */
+    public List<GameModel> getGameByCategory(GameCategory category){
+        List<GameModel> games = namedParameterJdbcTemplate.query(SELECT_ALL_BY_CATEGORY, new GameRowMapper());
         return games;
     }
 
@@ -56,7 +67,7 @@ public class GameRepository {
      * @return The GameModel object passed in.
      */
     @SuppressWarnings("null")
-    public GameModel AddPlayer(GameDto game){
+    public GameModel AddGame(GameDto game){
         try {
 			KeyHolder keyHolder = new GeneratedKeyHolder();
 			SqlParameterSource parameters = new MapSqlParameterSource()
@@ -68,7 +79,7 @@ public class GameRepository {
             return new GameModel(game);
 		} catch(Exception e) 
 		{
-			logger.error("PlayerRepository - AddPlayer() " + e.getLocalizedMessage());
+			logger.error("GameRepository - AddGame() " + e.getLocalizedMessage());
 		}
 		return null;
     } 

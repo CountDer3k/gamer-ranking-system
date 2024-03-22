@@ -13,6 +13,8 @@ public class PlayerDto {
     @NonNull
     private String lastName;
 
+    private byte[] playerImage;
+
 
     /**
      * Gets the gamer tag.
@@ -39,6 +41,14 @@ public class PlayerDto {
     }
 
     /**
+    * Gets the player's image
+    * @return A byte array containing raw image data.
+    */
+   public byte[] getPlayerImage(){
+       return this.playerImage;
+   }
+
+    /**
      * Sets the gamertag
      * @param gamerTag A string of the player's gamer tag.
      */
@@ -60,5 +70,13 @@ public class PlayerDto {
      */
     public void setLastName(String lastName){
         this.lastName = lastName;
+    }
+
+    /**
+     * Sets the player's image.
+     * @param image A byte array containing raw image data
+     */
+    public void setPlayerImage(byte[] image){
+        this.playerImage = image;
     }
 }

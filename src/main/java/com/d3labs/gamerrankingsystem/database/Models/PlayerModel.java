@@ -1,5 +1,9 @@
 package com.d3labs.gamerrankingsystem.database.Models;
 
+import java.util.Base64;
+
+import org.springframework.util.Base64Utils;
+
 import com.d3labs.gamerrankingsystem.database.Dtos.PlayerDto;
 
 /*
@@ -12,6 +16,7 @@ public class PlayerModel {
     private String GamerTag;
     private String FirstName;
     private String LastName;
+    private byte[] PlayerImage;
 
     /*
      * Instantiates a PlayerModel object.
@@ -63,6 +68,28 @@ public class PlayerModel {
     }
 
     /**
+     * Gets the player's image
+     * @return A byte array containing raw image data.
+     */
+    public byte[] getPlayerImage(){
+        return this.PlayerImage;
+    }
+
+    /**
+     * Converts the byte array of the image (the BLOB) into a base64 encoded string
+     * @return A base64 encoded string representation of the image.
+     */
+    public String getImageAsBase64(){
+        if(this.PlayerImage != null){
+
+            String imageString = Base64.getEncoder().encodeToString(this.PlayerImage);
+
+            return imageString;
+        }
+        return null;
+    }
+
+    /**
      * Sets the player's id.
      * @param id The id of the player.
      */
@@ -92,5 +119,13 @@ public class PlayerModel {
      */
     public void setLastName(String lastName){
         this.LastName = lastName;
+    }
+
+    /**
+     * Sets the player's image.
+     * @param image A byte array containing raw image data
+     */
+    public void setPlayerImage(byte[] image){
+        this.PlayerImage = image;
     }
 }

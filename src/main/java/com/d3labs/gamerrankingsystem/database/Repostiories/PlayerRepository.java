@@ -27,8 +27,8 @@ public class PlayerRepository {
 
     // SQL Queries
     private static String SELECT_ALL_PLAYERS = "SELECT * FROM players ";
-    private static String SELECT_PLAYER_BY_TAG = "SELECT * players p WHERE p.game_tag = :plaerID ";
-    private static String INSERT_PLAYER = "INSERT INTO players(gamer_tag, first_name, last_name) VALUES(:gamer_tag, :first_name, :last_name) ";
+    private static String SELECT_PLAYER_BY_TAG = "SELECT * players p WHERE p.game_tag = :playerID ";
+    private static String INSERT_PLAYER = "INSERT INTO players(gamer_tag, first_name, last_name, player_image) VALUES(:gamer_tag, :first_name, :last_name, :player_image) ";
 
 // "INSERT INTO Post(user_id, create_on) VALUES(:userID, :create) ";
 
@@ -85,7 +85,8 @@ public class PlayerRepository {
 			SqlParameterSource parameters = new MapSqlParameterSource()
                 .addValue("gamer_tag", player.getGamerTag())
                 .addValue("first_name", player.getFirstName())
-                .addValue("last_name", player.getLastName());
+                .addValue("last_name", player.getLastName())
+                .addValue("player_image", player.getPlayerImage());
 
 			namedParameterJdbcTemplate.update(INSERT_PLAYER, parameters, keyHolder);
 

@@ -22,10 +22,11 @@ public class GameRowMapper implements RowMapper{
 
         game.setGameId(rs.getInt("game_id"));
         game.setGameName(rs.getString("gameName"));
+        // Set category based on the enum
         String gameCategory =rs.getString("gameCategory");
-        
         game.setGameCategory(EnumStore.GetEnumFromString(gameCategory));
-
+        game.setGameImage(rs.getBytes("game_image"));
+        
         return game;
     }
     

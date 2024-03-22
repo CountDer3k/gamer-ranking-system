@@ -31,6 +31,7 @@ public class PlayerRowMapper implements RowMapper{
         player.setFirstName(rs.getString("first_name"));
         player.setLastName(rs.getString("last_name"));
         player.setId(rs.getInt("player_id"));
+        player.setPlayerImage(rs.getBytes("player_image"));
 		return player;
 	}
 }

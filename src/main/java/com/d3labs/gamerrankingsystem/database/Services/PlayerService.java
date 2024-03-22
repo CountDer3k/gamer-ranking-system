@@ -52,7 +52,7 @@ public class PlayerService {
     /**
      * Inserts a new Player into the database through the player repostiory.
      * @param player The PlayerModel objecdt to add to the database.
-     * @return A PlayerModel object.
+     * @return A PlayerDto object.
      */
     public PlayerModel addPlayer(PlayerDto playerDto){
         // Add player to database through repository.
