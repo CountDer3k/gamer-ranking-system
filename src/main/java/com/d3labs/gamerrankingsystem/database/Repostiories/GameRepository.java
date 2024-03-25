@@ -18,7 +18,8 @@ import com.d3labs.gamerrankingsystem.database.RowMappers.GameRowMapper;
 import com.d3labs.gamerrankingsystem.globals.EnumStore.GameCategory;
 
 /**
- * A Repository class for interacting with the database for the games table using the the GameModel object class.
+ * A Repository class for interacting with the database for the games table
+ * using the the GameModel object class.
  */
 @Repository
 public class GameRepository {
@@ -28,59 +29,68 @@ public class GameRepository {
     // SQL Queries
     private static String SELECT_ALL_GAMES = "SELECT * FROM games ";
     private static String SELECT_ALL_BY_CATEGORY = "SELECT * from games p WHERE p.category = :gCategory ";
-    private static String INSERT_GAME = "INSERT INTO games(gameName, gameCategory) VALUES(:gName, :gCategory) ";
+    private static String INSERT_GAME = "INSERT INTO games(game_name, game_category, game_image) VALUES(:gName, :gCategory, :gImage) ";
     // "SELECT * players p WHERE p.game_tag = :playerID ";
-    // "INSERT INTO players(gamer_tag, first_name, last_name) VALUES(:gamer_tag, :first_name, :last_name) ";
+    // "INSERT INTO players(gamer_tag, first_name, last_name) VALUES(:gamer_tag,
+    // :first_name, :last_name) ";
+
     /**
      * A constructor to instatiate the Game Repository.
-     * It takes in a NamedParameterJdbcTemplate that will interact with the database (like context).
+     * It takes in a NamedParameterJdbcTemplate that will interact with the database
+     * (like context).
      * 
      * @param namedParameterJdbcTemplate The Java Database Connectivity.
      */
     @Autowired
-    public GameRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate){
+    public GameRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }
 
     /**
      * Gets a list of all games stored in the database.
+     * 
      * @return A list of GameModel objects.
      */
-    public List<GameModel> getAllGames(){
+    @SuppressWarnings("unchecked")
+    public List<GameModel> getAllGames() {
         List<GameModel> games = namedParameterJdbcTemplate.query(SELECT_ALL_GAMES, new GameRowMapper());
         return games;
     }
 
     /**
      * Gets a list of all games stored in the database that fit into the category.
+     * 
      * @param category The category to query by.
-     * @return A list of game models 
+     * @return A list of game models
      */
-    public List<GameModel> getGameByCategory(GameCategory category){
+    public List<GameModel> getGameByCategory(GameCategory category) {
         List<GameModel> games = namedParameterJdbcTemplate.query(SELECT_ALL_BY_CATEGORY, new GameRowMapper());
         return games;
     }
 
     /**
      * Inserts a games into the database.
-     * @param game A GameDto object (hold the most "raw" information to easily convert to the database).
+     * 
+     * @param game A GameDto object (hold the most "raw" information to easily
+     *             convert to the database).
      * @return The GameModel object passed in.
      */
     @SuppressWarnings("null")
-    public GameModel AddGame(GameDto game){
+    public GameModel AddGame(GameDto game) {
         try {
-			KeyHolder keyHolder = new GeneratedKeyHolder();
-			SqlParameterSource parameters = new MapSqlParameterSource()
-                .addValue("gameName", game.getGameName())
-                .addValue("gameCategory", game.getGameCategory());
+            KeyHolder keyHolder = new GeneratedKeyHolder();
+            SqlParameterSource parameters = new MapSqlParameterSource()
+                    .addValue("gName", game.getGameName())
+                    .addValue("gCategory", game.getGameCategory())
+                    .addValue("gImage", game.getGameImage());
 
-			namedParameterJdbcTemplate.update(INSERT_GAME, parameters, keyHolder);
+            namedParameterJdbcTemplate.update(INSERT_GAME, parameters, keyHolder);
 
             return new GameModel(game);
-		} catch(Exception e) 
-		{
-			logger.error("GameRepository - AddGame() " + e.getLocalizedMessage());
-		}
-		return null;
-    } 
+        } catch (Exception e) {
+            String error = e.getLocalizedMessage();
+            logger.error("GameRepository - AddGame() " + error);
+        }
+        return null;
+    }
 }

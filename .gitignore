@@ -34,3 +34,4 @@ build/
 
 ### Environemnt Variables for database ###
 .env
+.DS_STORE

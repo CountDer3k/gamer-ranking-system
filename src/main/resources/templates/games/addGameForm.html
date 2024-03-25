@@ -1,61 +1,90 @@
 <!DOCTYPE html>
 
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<link th:href="@{/css/main.css}" rel="stylesheet">
-<link rel="stylesheet"
-	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-	integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
-	crossorigin="anonymous" />
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
-	integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
-	crossorigin="anonymous">
-<title>Add New Game</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
-<body class="">
-	<br />
-	<div class="row sidePadding">
-		<div class="col-3"></div>
-		<div class="col-6" style="padding: 30px 20px;">
-			<div class="d-grid gap-2">
-				<h1>Add new Game</h1>
-				<label th:text=${msg}></label>
-				<form th:action="@{/games/addGme}" th:object="${game}"
-					method="POST" enctype="utf8">
-					<div class="form-group">
-						<label>Game Name(*)</label> <input class="form-control"
-							th:field="*{gameName}" />
-						<p th:each="error: ${#fields.errors('gameName')}" th:text="${error}">Validation
-							error</p>
-					</div>
-					<div class="form-group">
-						<label>Game Category(*)</label> <input class="form-control"
-							th:field="*{gameCategory}" />
-						<p th:each="error: ${#fields.errors('gameCategory')}" th:text="${error}">Validation
-							error</p>
-					</div>
-					<br />
-					<button type="submit" class="btn btn-success">submit</button>
-				</form>
-			</div>
-		</div>
-		<div class="col-3"></div>
-	</div>
+  <head>
+    <link th:href="@{/css/main.css}" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+      integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+      crossorigin="anonymous"
+    />
+    <title>Add New Game</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+  <body class="">
+    <br />
+    <div class="row sidePadding">
+      <div class="col-3"></div>
+      <div class="col-6" style="padding: 30px 20px">
+        <div class="d-grid gap-2">
+          <h1>Add new Game</h1>
+          <label th:text="${msg}"></label>
+          <form
+            th:action="@{/games/addGame}"
+            th:object="${game}"
+            method="POST"
+            enctype="utf8"
+          >
+            <div class="form-group">
+              <label>Game Name(*)</label>
+              <input class="form-control" th:field="*{gameName}" />
+              <p
+                th:each="error: ${#fields.errors('gameName')}"
+                th:text="${error}"
+              >
+                Validation error
+              </p>
+            </div>
+            <br />
+            <div class="form-group">
+              <label>Category(*)</label>
+              <select
+                class="form-control"
+                id="dropDownList"
+                name="gameCategory"
+              >
+                <option value="0">---</option>
+                <option
+                  th:each="category : ${gameCategories}"
+                  th:value="${category}"
+                  th:text="${category}"
+                ></option>
+              </select>
+            </div>
+            <br />
+            <div class="form-group">
+              <label for="gameImage">Image:</label>
+              <input
+                type="file"
+                id="gameImage"
+                name="gameImage"
+                accept="image/*"
+              />
+            </div>
+            <br />
+            <button type="submit" class="btn btn-success">submit</button>
+          </form>
+        </div>
+      </div>
+      <div class="col-3"></div>
+    </div>
 
-	<script
-		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
-		integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
-		crossorigin="anonymous">
-		
-	</script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js"
-		integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/"
-		crossorigin="anonymous">
-		
-	</script>
-
-</body>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+      integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js"
+      integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>

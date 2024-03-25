@@ -1,4 +1,4 @@
-package com.d3labs.gamerrankingsystem;
+package com.d3labs.gamerrankingsystem.Controllers;
 
 import java.util.ArrayList;
 import java.util.List;
