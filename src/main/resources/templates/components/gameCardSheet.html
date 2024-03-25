@@ -37,10 +37,10 @@
       <!-- Left side of card (Game image) -->
       <div class="col-3">
         <img
-          src="/images/game.jpg"
-          alt="Game Image"
+          th:src="'data:image/png;base64,' + ${game.getImageAsBase64}"
+          alt="Image"
           width="150px"
-          height="150px"
+          height="200px"
         />
       </div>
 
@@ -52,19 +52,6 @@
           Category:
           <span th:text="${game.getGameCategory}" class="h5"></span>
         </p>
-
-        <img
-          th:src="@{'data:image/jpg;base64,' + ${game.getImageAsBase64 }}"
-          alt="Game Image"
-        />
-        <img
-          th:src="'data:image/png;base64,' + ${game.getImageAsBase64}"
-          alt="Image"
-        />
-        <!-- 
-            <img th:if="${game.getImageAsBase64 != null}"
-                 th:src="data:image/png;base64, ${game.getImageAsBase64}"
-                 alt="game Image"/> -->
       </div>
     </div>
   </body>

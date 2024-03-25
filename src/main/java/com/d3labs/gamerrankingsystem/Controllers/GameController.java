@@ -96,16 +96,21 @@ public class GameController {
      * @throws Exception If an error occurs during player addition.
      */
     @PostMapping("/games/addGame")
-    public ModelAndView addNewGame(@Validated GameDto gameDto,
+    public ModelAndView addNewGame(@ModelAttribute("game") @Validated GameDto gameDto,
             BindingResult bindResult,
-            HttpServletRequest request,
-            Errors errors) {
+            @RequestParam("gameImageRaw") MultipartFile gameImage,
+            HttpServletRequest request) throws IOException {
 
         if (bindResult.hasErrors()) {
             return new ModelAndView("error");
         }
 
-        ModelAndView modelandView = new ModelAndView("redirect:/");
+        if (!gameImage.isEmpty()) {
+            byte[] imageBytes = gameImage.getBytes();
+            gameDto.setGameImage(imageBytes); // Sets the byte array to your DTO manually
+        }
+
+        ModelAndView modelandView = new ModelAndView("redirect:/games/gamesList");
         GameModel game = gameService.addGame(gameDto);
 
         return modelandView;

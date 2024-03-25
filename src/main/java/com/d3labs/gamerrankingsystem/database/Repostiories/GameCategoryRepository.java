@@ -20,7 +20,7 @@ public class GameCategoryRepository {
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	private Logger logger = LoggerFactory.getLogger(GameCategoryRepository.class);
 
-	private static String SELECT_ALL_CATEGORIES = "SELECT * FROM gameCategory ";
+	private static String SELECT_ALL_CATEGORIES = "SELECT * FROM game_category ";
 
 	/**
 	 * A constructor to instatiate the Game Category Repository.

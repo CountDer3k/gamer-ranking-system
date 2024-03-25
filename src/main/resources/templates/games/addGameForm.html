@@ -30,7 +30,7 @@
             th:action="@{/games/addGame}"
             th:object="${game}"
             method="POST"
-            enctype="utf8"
+            enctype="multipart/form-data"
           >
             <div class="form-group">
               <label>Game Name(*)</label>
@@ -60,12 +60,13 @@
             </div>
             <br />
             <div class="form-group">
-              <label for="gameImage">Image:</label>
+              <label for="gameImageRaw">Image:</label>
               <input
                 type="file"
-                id="gameImage"
-                name="gameImage"
+                id="gameImageRaw"
+                name="gameImageRaw"
                 accept="image/*"
+                class="form-control-file"
               />
             </div>
             <br />
